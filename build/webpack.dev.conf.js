@@ -9,9 +9,26 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const axios=require('axios')
+const express =require('express')
+const proxy = require('http-proxy-middleware')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+
+var app=express();
+// var apiRoutes=express.Router();
+// //后端代理
+// app.use('/api',apiRoutes)
+// var proxyTable=config.dev.proxyTable;
+// Object.keys(proxyTable).forEach(function (t) {
+//   var option=proxyTable[t]
+//   if(typeof option === 'string'){
+//     option ={target:option}
+//   }
+//   app.use(proxy(option.filter || t,option))
+// })
+
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -22,6 +39,22 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   // these devServer options should be customized in /config/index.js
   devServer: {
+    // before(app){
+    //   app.get('/api/getDisList',function (req,res) {
+    //     var url='https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
+    //     axios.get(url,{
+    //       headers:{
+    //         referer:'https://c.y.qq.com/',
+    //         host:'c.y.qq.com'
+    //       },params:req.query
+    //
+    //     }).then((res)=>{
+    //       res.json(res.data)
+    //     }).catch((e)=>{
+    //       console.log(e)
+    //     })
+    //   })
+    // },
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
