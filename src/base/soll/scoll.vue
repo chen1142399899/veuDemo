@@ -9,7 +9,7 @@
 
 <script>
     // 导入组件
-import bs from 'better-scroll'
+import BScroll from 'better-scroll'
 
     export default {
       props:{
@@ -31,7 +31,7 @@ import bs from 'better-scroll'
 
         setTimeout(() => {
 
-       this._initScroll()
+          this._initScroll()
 
     },20)
       },
@@ -42,14 +42,14 @@ import bs from 'better-scroll'
           if(!this.$refs.wrapper){
             return
           }
-          this.scroll=new bs(this.$refs.wrapper,{
+          this.scroll=new BScroll(this.$refs.wrapper,{
 //            有时候我们需要知道滚动的位置。当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）
 // 派发scroll 事件；当 probeType 为 2 的时候，会在屏幕滑动的过程中实时的派发 scroll 事件；当 probeType
 // 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
             probeType:this.probeType,
             click:this.click
           })
-          console.log( '测试'+this.scroll);
+
         },
 //        启用 better-scroll, 默认 开启。
         enable(){
@@ -67,6 +67,7 @@ import bs from 'better-scroll'
       watch:{
         data(){
           setTimeout(() => {
+
             this.refresh()
           },20)
         }

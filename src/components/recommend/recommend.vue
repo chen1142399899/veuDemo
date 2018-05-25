@@ -1,14 +1,14 @@
 <!-- 展示模板 -->
 <template>
  <div class="recommend">
- 	<Scroll class="sb" v-bind:data="disList">
+ 	<scoll class="sb" v-bind:data="disList" ref="scroll">
     <div>
       <div v-if="recommends.length" class="slider-wrappe" style="width: 100%;overflow: hidden" ref="sliderWrapper">
         <lb class="s">
           <div v-for="item in recommends">
             <!--v-bind: 绑定属性 简写 :-->
             <a :href="item.linkUrl">
-              <img  v-bind:src="item.picUrl" alt="" />
+              <img class="needsclick" v-on:load="loadImg" v-bind:src="item.picUrl" alt="" />
             </a>
           </div>
         </lb>
@@ -18,7 +18,8 @@
         <ul>
           <li v-for="item in disList" class="item">
             <div>
-              <img width="60" height="60" v-bind:src="item.imgurl" alt="">
+              <!--懒加载-->
+              <img width="60" height="60" v-lazy="item.imgurl" alt="">
             </div>
             <div>
               <h2 class="dis-h2" v-html="item.creator.name"></h2>
@@ -29,9 +30,9 @@
       </div>
     </div>
     <div class="loading-container" v-show="!disList.length">
-
+      <LogImg></LogImg>
     </div>
- 	</Scroll>
+ 	</scoll>
 
  </div>
 </template>
@@ -40,8 +41,8 @@
 	import {getRecommend,getDisList} from 'api/recommend'
 	import {ERR_OK} from 'api/config'
 	import Lb from 'base/lb/lb'
-  import Scroll from 'base/soll/scoll'
-  import logImg from'base/logimg/logimg'
+  import Scoll from 'base/soll/scoll'
+  import LogImg from'base/logimg/logimg'
 
   console.log(ERR_OK)
 
@@ -55,7 +56,11 @@
    	},
    	created(){
    		this._getRecommend()
-      this._getDisList()
+//      setTimeout(
+//        ()=>{
+          this._getDisList()
+//        },2000)
+
    	},
 
    	methods:{
@@ -78,12 +83,19 @@
 
           }
         })
+      },
+      loadImg(){
+        if(!this.checkaded){
+          this.checkaded=true;
+          this.$refs.scroll.refresh()
+        }
+
       }
    	},
    	components:{
 	    Lb,
-      Scroll,
-      logImg
+      Scoll,
+      LogImg
 }
 
    }
@@ -130,10 +142,23 @@
     font-size: 14px;
   }
   .dis-h2,.dis-p{
-    font-size: 13px;
+    font-size: 12px;
   }
   .dis-p{
    line-height: 24px;
     margin-top: 10px;
+  }
+  .sb{
+    height: 100%;
+    overflow: hidden;
+  }
+  .loading-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+   text-align: center;
+  }
+  .loading-container p{
+    font-size: 10px;
   }
 </style>

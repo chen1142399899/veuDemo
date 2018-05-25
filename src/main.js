@@ -9,9 +9,13 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'font-awesome/css/font-awesome.css'
 import axios from 'axios'
+import VueLazyLoad from 'vue-lazyload'
 
 
 Vue.use(ElementUI)
+Vue.use(VueLazyLoad,{
+  loading:require("common/imags/default.png")
+})
 
 //body下面所有点击都没有三百号秒的延迟
 fastclick.attach(document.body)
@@ -24,5 +28,5 @@ new Vue({
   router,
   components: { App },
   template: '<App/>',
- 
+
 })

@@ -23,6 +23,7 @@
 <style scoped lang="less">
   @import "../../common/less/ty.less";
    .loin{
-     font-size: 15px;line-break: 24px;
+     font-size: 12px;
+     line-height:24px;
    }
 </style>
