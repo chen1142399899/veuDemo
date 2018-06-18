@@ -20,7 +20,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 /*全局样式只支持assets目录*/
 @import "./assets/less/love.less";
 

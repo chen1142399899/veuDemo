@@ -24,6 +24,11 @@ import BScroll from 'better-scroll'
         data:{
           type:Array,
           default:null
+        },
+        listemScoll:{
+        	//监听滚动事件
+        	type:Boolean,
+        	default:false
         }
       },
 //      页面载入后执行
@@ -48,7 +53,15 @@ import BScroll from 'better-scroll'
 // 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
             probeType:this.probeType,
             click:this.click
-          })
+          });
+          if(!this.listemScoll){
+          	//保留当前实例 bscroll里面是scroll实例this
+          	let mthis=this;
+          	this.scroll.on("scroll",(pos)=>{
+          		//监听滚动事件
+          		mthis.$emit("scroll",pos);
+          	})
+          }
 
         },
 //        启用 better-scroll, 默认 开启。
@@ -62,6 +75,13 @@ import BScroll from 'better-scroll'
 //refresh重新计算 better-scroll，当 DOM 结构发生变化的时候务必要调用确保滚动的效果正常
         refresh(){
           this.scroll&&this.scroll.refresh()
+        },
+        scrollTo(){
+        	//滚动到指定位置
+        	this.scroll&&this.scroll.scrollTo.apply(this.scroll,arguments)
+        },
+        scrollToElement(){
+        	this.scroll&&this.scroll.scrollToElement.apply(this.scroll,arguments)
         }
       },
       watch:{

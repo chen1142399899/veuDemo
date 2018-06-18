@@ -44,7 +44,7 @@
   import Scoll from 'base/soll/scoll'
   import LogImg from'base/logimg/logimg'
 
-  console.log(ERR_OK)
+
 
    export default{
    	data(){

@@ -5,14 +5,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import fastclick from 'fastclick'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import 'font-awesome/css/font-awesome.css'
+import store from './store'
+//import ElementUI from 'element-ui'
+//import 'element-ui/lib/theme-chalk/index.css'
+//import 'font-awesome/css/font-awesome.css'
 import axios from 'axios'
 import VueLazyLoad from 'vue-lazyload'
 
-
-Vue.use(ElementUI)
+//require('./common/less/index.less');
+//Vue.use(ElementUI)
 Vue.use(VueLazyLoad,{
   loading:require("common/imags/default.png")
 })
@@ -26,7 +27,10 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  //vuex初始化
+  store,
   components: { App },
   template: '<App/>',
+  
 
 })
